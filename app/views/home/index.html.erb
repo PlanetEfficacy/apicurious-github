@@ -1,0 +1,29 @@
+<% if current_user %>
+  <%= form_tag "repo" do |f| %>
+    <div class="form-group">
+      <%= text_field_tag "name", "", placeholder: "Repository name", class: "form-control" %>
+      <%= submit_tag "Create", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="container">
+  <% if current_user %>
+  <table class="table">
+    <% @repos.each do |repo| %>
+      <tr>
+        <td>
+          <%= link_to repo.name, repo.url %>
+        </td>
+        <td>
+          <%= link_to 'Delete', repo_path(repo_name: repo.name), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+
+  <% else %>
+    <h4>Login to view your repositories</h4>
+  <% end %>
+</div>
